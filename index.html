@@ -66,10 +66,10 @@
         top: 0;
         left: 0;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         flex-direction: column;
-        width: 100%;
+        width: 100vw;
         height: 100vh;
         background-color: black;
         z-index: 5;
@@ -79,8 +79,8 @@
       .showImage {
         position: relative;
         height: 90vh;
-        width: 90%;
-        z-index: 99;
+        width: 90vw;
+        z-index: 98;
         margin-bottom: 1rem;
         background-position: center;
         background-repeat: no-repeat;
@@ -88,10 +88,10 @@
       }
 
       .overlay {
-        position: relative;
+        position: fixed;
         top: 0;
-        width: 90%;
-        height: 50px;
+        width: 90vw;
+        height: 10vh;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -205,6 +205,7 @@
       }
 
       function openImage(i) {
+
         document.getElementById("content").innerHTML = ``;
         document.getElementById("show").innerHTML += `
         <div class="backgroundImg">
@@ -218,10 +219,10 @@
                 <img src="./img/icons/sharethis-64.png" alt="icen zum sharen">
               </div>
               <div>
-                <img src="./img/icons/zoom-in-64.png" alt="icon Lupe grösser">
+                <img onclick="zoomin(${i})" src="./img/icons/zoom-in-64.png" alt="icon Lupe grösser">
               </div>
               <div>
-                <img src="./img/icons/zoom-out-64.png" alt="icon Lupe kleiner">
+                <img onclick="zoomout(${i})" src="./img/icons/zoom-out-64.png" alt="icon Lupe kleiner">
               </div>
               <div>
                 <img src="./img/icons/info-2-64.png" alt="icon informiation">
@@ -240,22 +241,26 @@
             </div>
           </div>
           
-          <div class="showImage" style="background-image: url(${images[i]});">
+          <div id="${i}" class="showImage" style="background-image: url(${images[i]});">
           </div>
         </div>
         `;
       }
 
-      function zoomin() {
-            let zoomin = document.getElementById();
+      function zoomin(i) {
+            let zoomin = document.getElementById(i);
             let currWidth = zoomin.clientWidth;
+            let currHeight = zoomin.clientHeight;
             zoomin.style.width = (currWidth + 100) + "px";
+            zoomin.style.height = (currHeight + 100) + "px";
         }
           
-        function zoomout() {
-            let zoomout = document.getElementById();
+        function zoomout(i) {
+            let zoomout = document.getElementById(i);
             let currWidth = zoomout.clientWidth;
+            let currHeight = zoomout.clientHeight;
             zoomout.style.width = (currWidth - 100) + "px";
+            zoomout.style.height = (currHeight - 100) + "px";
         }
 
 
