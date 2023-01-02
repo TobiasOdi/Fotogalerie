@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fotogalerie</title>
+
+    <!-- ============================= Schriftart ============================== -->
+    <link rel="stylesheet" href="./fonts.css" />
+
+    <style>
+      body {
+        margin: 0;
+        font-family: "Raleway", sans-serif;
+      }
+
+      header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: 80px;
+        border-bottom: 1px solid rgb(218, 220, 224);
+        margin-left: 10%;
+        margin-right: 10%;
+      }
+
+      header img {
+        height: 35px;
+        width: auto;
+        margin-right: 1rem;
+      }
+
+      .imgContainer {
+        margin-top: 2.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-left: 10%;
+        margin-right: 10%;
+      }
+
+      .imgBox {
+        height: 150px;
+        width: 250px;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 5px;
+      }
+
+      .imgBox:hover {
+        box-shadow: inset 0 0 20px 10px rgb(146, 143, 143);
+      }
+
+      .backgroundImg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        padding: 2rem;
+        background-color: black;
+        z-index: 5;
+      }
+
+      .showImage {
+        height: 80vh;
+        width: 90vw;
+        z-index: 99;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 5px;
+        margin-left: 0;
+        margin-right: 0;
+      }
+    </style>
+  </head>
+
+  <body id="show" onload="render()">
+    <header>
+      <img src="./img/icons/icons8-gallery-80.png" alt="Bid eines Foto Icons" />
+      <p><b>Your</b> Fotos</p>
+      <img src="" alt="" />
+      <img src="" alt="" />
+    </header>
+
+    <section>
+      <div class="imgContainer" id="content"></div>
+    </section>
+
+    <script>
+      let images = [
+        "./img/alberta-2297204_1920.jpg",
+        "./img/aurora-1197753_1920.jpg",
+        "./img/avenue-815297_1920.jpg",
+        "./img/bora-bora-685303_1920.jpg",
+        "./img/bridge-53769_1920.jpg",
+        "./img/forest-1072828_1920.jpg",
+        "./img/godafoss-1840758_1920.jpg",
+        "./img/hd-wallpaper-218591_1920.jpg",
+        "./img/hd-wallpaper-230014_1920.jpg",
+        "./img/hd-wallpaper-275950_1920.jpg",
+        "./img/hd-wallpaper-1758197_1920.jpg",
+        "./img/hd-wallpaper-1867616_1920.jpg",
+        "./img/hd-wallpaper-2435404_1920.jpg",
+        "./img/hd-wallpaper-2836301_1920.jpg",
+        "./img/hd-wallpaper-2836301_1920.jpg",
+        "./img/hd-wallpaper-3021072_1920.jpg",
+        "./img/hd-wallpaper-3119826_1920.jpg",
+        "./img/hd-wallpaper-3314275_1920.jpg",
+        "./img/hd-wallpaper-3314275_1920.jpg",
+        "./img/hd-wallpaper-3358468_1920.jpg",
+        "./img/hd-wallpaper-3441687_1920.jpg",
+        "./img/hd-wallpaper-3533173_1920.jpg",
+        "./img/hd-wallpaper-3689760_1920.jpg",
+        "./img/hd-wallpaper-3719233_1920.jpg",
+        "./img/hd-wallpaper-g3a789cf12_1920.jpg",
+        "./img/hd-wallpaper-gb13091212_1920.jpg",
+        "./img/hd-wallpaper-gdd451b5f5_1920.jpg",
+        "./img/hintersee-3601004_1920.jpg",
+        "./img/iceland-1768744_1920.jpg",
+        "./img/lake-1802337_1920.jpg",
+        "./img/mountains-190055_1280.jpg",
+        "./img/mountains-1761292_1920.jpg",
+        "./img/nature-3082832_1920.jpg",
+        "./img/nature-wallpaper-3087145_1920.jpg",
+        "./img/nature-wallpaper-3151869_1920.jpg",
+        "./img/road-1072823_1920.jpg",
+        "./img/splashing-165192_1280.jpg",
+        "./img/sunset-1373171_1920.jpg",
+        "./img/sunset-3325080_1920.jpg",
+        "./img/thunderstorm-3440450_1920.jpg",
+        "./img/tree-736882_1280.jpg",
+        "./img/tree-736885.jpg",
+      ];
+
+      function render() {
+        for (i = 0; i < images.length; i++) {
+          document.getElementById("content").innerHTML += `
+                  <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${images[i]});"></div>
+              `;
+        }
+      }
+
+      function openImage(i) {
+        document.getElementById("content").innerHTML = ``;
+        document.getElementById("show").innerHTML += `
+        <div class="backgroundImg">
+          <div class="showImage" style="background-image: url(${images[i]});">
+          </div>
+        </div>
+        `;
+      }
+    </script>
+  </body>
+</html>
