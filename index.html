@@ -11,6 +11,7 @@
 
     <style>
       body {
+        box-sizing: border-box;
         margin: 0;
         font-family: "Raleway", sans-serif;
       }
@@ -21,8 +22,8 @@
         align-items: center;
         height: 80px;
         border-bottom: 1px solid rgb(218, 220, 224);
-        margin-left: 10%;
-        margin-right: 10%;
+        padding-left: 5%;
+        padding-right: 5%;
       }
 
       header img {
@@ -31,14 +32,18 @@
         margin-right: 1rem;
       }
 
+      header p {
+        font-size: 2rem;
+      }
+
       .imgContainer {
         margin-top: 2.5rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        margin-left: 10%;
-        margin-right: 10%;
+        margin-left: 5%;
+        margin-right: 5%;
       }
 
       .imgBox {
@@ -49,11 +54,11 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        border-radius: 5px;
+        border-radius: 10px;
       }
 
       .imgBox:hover {
-        box-shadow: inset 0 0 20px 10px rgb(146, 143, 143);
+        box-shadow: inset 0 0 30px 10px black;
       }
 
       .backgroundImg {
@@ -61,25 +66,72 @@
         top: 0;
         left: 0;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        width: 100vw;
+        flex-direction: column;
+        width: 100%;
         height: 100vh;
-        padding: 2rem;
         background-color: black;
         z-index: 5;
+        padding: 0;
       }
 
       .showImage {
-        height: 80vh;
-        width: 90vw;
+        position: relative;
+        height: 90vh;
+        width: 90%;
         z-index: 99;
+        margin-bottom: 1rem;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        border-radius: 5px;
-        margin-left: 0;
-        margin-right: 0;
+      }
+
+      .overlay {
+        position: relative;
+        top: 0;
+        width: 90%;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 99;
+      }
+
+      .overlay > div:last-of-type {
+        width: 25%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .overlay img {
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+      }
+
+      .dots {
+        height: 20px;
+        width: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+        cursor: pointer;
+        border-radius: 50%;
+      }
+
+      .dots:hover {
+        background-color: white;
+        opacity: 0.1;
+      }
+
+      .dot {
+        height: 5px;
+        width: 5px;
+        border-radius: 50%;
+        background-color: white;
       }
     </style>
   </head>
@@ -143,6 +195,8 @@
       ];
 
       function render() {
+        document.getElementById("content").innerHTML = ``;
+
         for (i = 0; i < images.length; i++) {
           document.getElementById("content").innerHTML += `
                   <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${images[i]});"></div>
@@ -154,11 +208,57 @@
         document.getElementById("content").innerHTML = ``;
         document.getElementById("show").innerHTML += `
         <div class="backgroundImg">
+          <div class="overlay">
+            <div>
+              <img onclick="render()" src="./img/icons/arrow-121-64.png" alt="Pfeil nach links (zrück)">
+            </div>
+
+            <div>
+              <div>
+                <img src="./img/icons/sharethis-64.png" alt="icen zum sharen">
+              </div>
+              <div>
+                <img src="./img/icons/zoom-in-64.png" alt="icon Lupe grösser">
+              </div>
+              <div>
+                <img src="./img/icons/zoom-out-64.png" alt="icon Lupe kleiner">
+              </div>
+              <div>
+                <img src="./img/icons/info-2-64.png" alt="icon informiation">
+              </div>
+              <div>
+                <img src="./img/icons/star-4-64.png" alt="icon Stern">
+              </div>
+              <div>
+                <img src="./img/icons/delete-64.png" alt="icon Abfalleimer">
+              </div>
+              <div class="dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+          </div>
+          
           <div class="showImage" style="background-image: url(${images[i]});">
           </div>
         </div>
         `;
       }
+
+      function zoomin() {
+            let zoomin = document.getElementById();
+            let currWidth = zoomin.clientWidth;
+            zoomin.style.width = (currWidth + 100) + "px";
+        }
+          
+        function zoomout() {
+            let zoomout = document.getElementById();
+            let currWidth = zoomout.clientWidth;
+            zoomout.style.width = (currWidth - 100) + "px";
+        }
+
+
     </script>
   </body>
 </html>
