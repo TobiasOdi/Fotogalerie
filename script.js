@@ -107,18 +107,14 @@ let images = [
   function zoomin(i) {
     let zoomin = document.getElementById(i);
     let currWidth = zoomin.clientWidth;
-    let currHeight = zoomin.clientHeight;
-    zoomin.style.width = currWidth + 100 + "px";
-    zoomin.style.height = currHeight + 100 + "px";
-  }
-
+    zoomin.style.width = (currWidth + 100) + "px";
+}
+  
   function zoomout(i) {
     let zoomout = document.getElementById(i);
     let currWidth = zoomout.clientWidth;
-    let currHeight = zoomout.clientHeight;
-    zoomout.style.width = currWidth - 100 + "px";
-    zoomout.style.height = currHeight - 100 + "px";
-  }
+    zoomout.style.width = (currWidth - 100) + "px";
+}
 
 let toggle = false;
 

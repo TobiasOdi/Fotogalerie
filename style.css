@@ -36,7 +36,7 @@ header p {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.5rem;
     margin-left: 5%;
     margin-right: 5%;
 }
@@ -49,7 +49,7 @@ header p {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .imgBox:hover {
@@ -94,7 +94,7 @@ header p {
 
 .overlay>div:first-of-type:hover {
     border: 1px solid white;
-    box-shadow: 0px 0px 5px 5px white;
+    box-shadow: 0px 0px 15px 5px white;
 }
 
 .overlay>div:last-of-type {
@@ -118,7 +118,7 @@ header p {
 
 .overlay>div:last-of-type>div:hover {
     border: 1px solid white;
-    box-shadow: 0px 0px 5px 5px white;
+    box-shadow: 0px 0px 15px 5px white;
 }
 
 .overlay img {
@@ -147,7 +147,8 @@ header p {
 .showImage {
     position: relative;
     height: 90%;
-    width: 90%;
+    max-width: 90%;
+    width: auto;
     z-index: 3;
     overflow: hidden;
     object-fit: cover;
