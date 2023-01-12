@@ -1,8 +1,10 @@
 /* ===================================== ALLGEMEIN ====================================== */
+* {
+    box-sizing: border-box;
+}
 
 body {
     font-size: 16px;
-    box-sizing: border-box;
     margin: 0;
     font-family: "Raleway", sans-serif;
 }
@@ -69,10 +71,14 @@ header p {
     height: 100vh;
     background-color: black;
     z-index: 2;
-    padding: 0;
+    padding-top: 4rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
 }
 
 .overlay {
+    position: absolute;
     top: 0;
     width: 90vw;
     height: 25px;
@@ -80,6 +86,7 @@ header p {
     justify-content: space-between;
     align-items: center;
     z-index: 4;
+    margin-top: 1rem;
 }
 
 .overlay>div:first-of-type {
@@ -93,12 +100,10 @@ header p {
 }
 
 .overlay>div:first-of-type:hover {
-    border: 1px solid white;
-    box-shadow: 0px 0px 15px 5px white;
+    box-shadow: 0px 0px 10px 5px white;
 }
 
 .overlay>div:last-of-type {
-    width: 25%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -113,11 +118,9 @@ header p {
     height: 30px;
     width: 30px;
     z-index: 5;
-    border: 1px solid black;
 }
 
 .overlay>div:last-of-type>div:hover {
-    border: 1px solid white;
     box-shadow: 0px 0px 15px 5px white;
 }
 
@@ -125,6 +128,7 @@ header p {
     height: 20px;
     width: 20px;
     cursor: pointer;
+    border: none;
 }
 
 .dots {
@@ -146,8 +150,8 @@ header p {
 
 .showImage {
     position: relative;
-    height: 90%;
-    max-width: 90%;
+    width: 90%;
+    height: auto;
     width: auto;
     z-index: 3;
     overflow: hidden;
@@ -160,4 +164,28 @@ header p {
     height: 100%;
     z-index: 4;
     object-fit: cover;
+}
+
+/* =========================== RESPONSIVENESS ================================= */
+
+@media(max-width: 1000px) {
+    .imgBox {
+        min-width: calc(100% / 4);
+    }
+}
+
+@media(max-width: 750px) {
+    .imgBox {
+        min-width: calc(100% / 3);
+    }
+}
+
+@media(max-width: 400px) {
+    .imgBox {
+        width: 100%;
+    }
+
+    header p {
+        font-size: 1.5rem;
+    }
 }
