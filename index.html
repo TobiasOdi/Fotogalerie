@@ -11,12 +11,17 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
 
-  <body onload="render()">
+  <body onload="render(), load()">
     <header>
-      <img GFG="" src="./img/icons/icons8-gallery-80.png" alt="Bid eines Foto Icons" />
-      <p><b>YOUR</b> Fotos</p>
-      <img src="" alt="" />
-      <img src="" alt="" />
+      <div onclick="render()">
+        <img GFG="" src="./img/icons/icons8-gallery-80.png" alt="Bid eines Foto Icons" />
+        <p><b>YOUR</b> Fotos</p>
+      </div>
+      <div>
+        <img onclick="render()" src="./img/icons/haus.png" alt="Logo eines Herzens" />
+        <img onclick="renderFavorites()" id="favorites" src="./img/icons/sternentaste-bewerten.png" alt="Logo eines Herzens" />
+      </div>
+
     </header>
 
     <section>

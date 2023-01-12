@@ -43,12 +43,33 @@ let images = [
     "./img/tree-736885.jpg",
   ];
 
+  let favorites = [];
+
   function render() {
     document.getElementById("content").innerHTML = ``;
 
     for (i = 0; i < images.length; i++) {
       document.getElementById("content").innerHTML += `
-              <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${images[i]});"></div>
+              <div class="outerImgBox">
+                <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${images[i]});">
+                </div>
+                <div></div>
+              </div>
+          `;
+    }
+  }
+
+  function renderFavorites() {
+    document.getElementById("content").innerHTML = ``;
+    for (i = 0; i < favorites.length; i++) {
+      document.getElementById("content").innerHTML += `
+              <div class="outerImgBox">
+                <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${images[i]});">
+                </div>
+                <div class="delete" onclick="deleteFavorite(${i})">
+                  <img src="./img/icons/entfernen.png" />
+                </div>
+              </div>
           `;
     }
   }
@@ -66,16 +87,16 @@ let images = [
           <div>
             <img src="./img/icons/sharethis-64.png" alt="icen zum sharen">
           </div>
-          <div>
-            <img onclick="zoomin(${i})" src="./img/icons/zoom-in-64.png" alt="icon Lupe grösser">
+          <div onclick="zoomin(${i})" >
+            <img src="./img/icons/zoom-in-64.png" alt="icon Lupe grösser">
           </div>
-          <div>
-            <img onclick="zoomout(${i})" src="./img/icons/zoom-out-64.png" alt="icon Lupe kleiner">
+          <div onclick="zoomout(${i})">
+            <img src="./img/icons/zoom-out-64.png" alt="icon Lupe kleiner">
           </div>    
           <div>
             <img src="./img/icons/info-2-64.png" alt="icon informiation">
           </div>
-          <div onclick="like()">
+          <div onclick="like(${i})">
             <img class="star" id="star" src="./img/icons/star-4-64.png" alt="icon Stern">
           </div>
           <div>
@@ -118,15 +139,38 @@ let images = [
 
 let toggle = false;
 
-function like() {
+function like(i) {
   if(toggle === true) {
     document.getElementById('star').src = './img/icons/star-4-64.png';
   } else {
     document.getElementById('star').src = './img/icons/star-64.png';
+    favorites.push(images[i]);
+    save();
   }
   toggle = !toggle;
-
 }
+
+function deleteFavorite(i) {
+  images.push(favorites[i]);
+  favorites.splice(i, 1);
+  renderFavorites()
+  
+  save();
+}
+
+function save() {
+  let favoritesAsText = JSON.stringify(favorites);       
+  localStorage.setItem('favorites', favoritesAsText);     
+}
+
+function load() {
+  let favoritesAsText = localStorage.getItem('favorites');
+  if(favoritesAsText) { 
+    favorites = JSON.parse(favoritesAsText);
+  }
+}
+
+
 
 
 
