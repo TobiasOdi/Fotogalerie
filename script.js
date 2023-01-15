@@ -49,69 +49,88 @@ let images = [
     document.getElementById("content").innerHTML = ``;
 
     for (i = 0; i < images.length; i++) {
-      document.getElementById("content").innerHTML += `
-              <div class="outerImgBox">
-                <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${images[i]});">
-                </div>
-                <div></div>
-              </div>
-          `;
+      document.getElementById("content").innerHTML += renderTemplate(i);
     }
   }
 
+  function renderTemplate(i) {
+    return `<div class="outerImgBox">
+    <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${images[i]});">
+    </div>
+    <div></div>
+  </div>
+    `;
+  }
+
   function renderFavorites() {
-    document.getElementById("content").innerHTML = ``;
-    for (i = 0; i < favorites.length; i++) {
-      document.getElementById("content").innerHTML += `
-              <div class="outerImgBox">
-                <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${images[i]});">
-                </div>
-                <div class="delete" onclick="deleteFavorite(${i})">
-                  <img src="./img/icons/entfernen.png" />
-                </div>
-              </div>
-          `;
+     document.getElementById("content").innerHTML = ``;
+     for (i = 0; i < favorites.length; i++) {
+      document.getElementById("content").innerHTML += renderFavoritesTemplate(i);
     }
+  }
+
+  function renderFavoritesTemplate(i) {
+    return `<div class="outerImgBox">
+    <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${images[i]});">
+    </div>
+    <div class="delete" onclick="deleteFavorite(${i})">
+      <img src="./img/icons/entfernen.png" />
+    </div>
+  </div>
+    `;
   }
 
   function openImage(i) {
     document.getElementById("content").innerHTML = ``;
-    document.getElementById("content").innerHTML += `
-    <div class="backgroundImg">
-      <div class="overlay">
-        <div onclick="backToImgs()">
-          <img src="./img/icons/arrow-121-64.png" alt="Pfeil nach links (zrück)">
-        </div>
+    document.getElementById("content").innerHTML += openImageTemplate(i);
+  }
 
+  function openImageTemplate(i){
+    return `
+  <div class="backgroundImg">
+    <div class="overlay">
+      <div onclick="backToImgs()">
+        <img src="./img/icons/arrow-121-64.png" alt="Pfeil nach links (zrück)">
+      </div>
+
+      <div>
         <div>
-          <div>
-            <img src="./img/icons/sharethis-64.png" alt="icen zum sharen">
-          </div>
-          <div onclick="zoomin(${i})" >
-            <img src="./img/icons/zoom-in-64.png" alt="icon Lupe grösser">
-          </div>
-          <div onclick="zoomout(${i})">
-            <img src="./img/icons/zoom-out-64.png" alt="icon Lupe kleiner">
-          </div>    
-          <div>
-            <img src="./img/icons/info-2-64.png" alt="icon informiation">
-          </div>
-          <div onclick="like(${i})">
-            <img class="star" id="star" src="./img/icons/star-4-64.png" alt="icon Stern">
-          </div>
-          <div>
-            <img src="./img/icons/delete-64.png" alt="icon Abfalleimer">
-          </div>
-          <div class="dots">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-          </div>
+          <img src="./img/icons/sharethis-64.png" alt="icen zum sharen">
+        </div>
+        <div onclick="zoomin(${i})" >
+          <img src="./img/icons/zoom-in-64.png" alt="icon Lupe grösser">
+        </div>
+        <div onclick="zoomout(${i})">
+          <img src="./img/icons/zoom-out-64.png" alt="icon Lupe kleiner">
+        </div>    
+        <div>
+          <img src="./img/icons/info-2-64.png" alt="icon informiation">
+        </div>
+        <div onclick="like(${i})">
+          <img class="star" id="star" src="./img/icons/star-4-64.png" alt="icon Stern">
+        </div>
+        <div>
+          <img src="./img/icons/delete-64.png" alt="icon Abfalleimer">
+        </div>
+        <div class="dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
         </div>
       </div>
-      
-      <div class="showImage">
-        <img id="${i}" src="${images[i]}" />
+    </div>
+    
+    <div class="showImage">
+      <img id="${i}" src="${images[i]}" />
+    </div>
+  </div>
+
+  <div class="overlaySwipeBtn">
+      <div calss="swipeleft" onclick="previousImg(${i})">
+        <img src="./img/icons/previous.png">
+      </div>
+      <div calss="swiperight" onclick="nextImg(${i})">
+        <img src="./img/icons/next.png">
       </div>
     </div>
     `;
@@ -119,6 +138,8 @@ let images = [
 
   // <div id="${i}" style="background-image: url(${images[i]});">
   // </div>
+
+/* ============================= Hauptfunktionen Bild ======================================= */
 
   function backToImgs() {
     document.getElementById("content").innerHTML = ``;
@@ -136,6 +157,62 @@ let images = [
     let currWidth = zoomout.clientWidth;
     zoomout.style.width = (currWidth - 100) + "px";
 }
+
+
+function previousImg(i) {                           // kann nur immer das vorgerige Bild ansehen, dann keines mehr
+  let img = document.getElementById(i);
+
+    images.indexOf(img);
+    img.src = images[i-1];
+    img = i-1;                                     // img ID aktualisieren
+}
+
+function nextImg(i) {
+  let img = document.getElementById(i);            // kann nur immer das nächste Bild ansehen, dann keines mehr
+
+  images.indexOf(i);
+  img.src = images[i+1]
+  }
+
+  // FUNKTION ausprobieren!!!!
+
+/*   var imgTag = document.querySelector("img");
+  var count = 0;
+  
+  function next(){
+      count++;
+      if(count >= photos.length){
+          count = 0;
+          imgTag.src = photos[count];
+      }else{
+          imgTag.src = photos[count];
+      }
+  }
+  
+  function prev(){
+      count--;
+      if(count < 0){
+          count = photos.length -1;
+          imgTag.src = photos[count];
+      }else{
+          imgTag.src = photos[count];
+      }
+  }
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============================== Like Funktion =============================================== */
 
 let toggle = false;
 
