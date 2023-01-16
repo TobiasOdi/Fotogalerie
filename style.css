@@ -142,7 +142,7 @@ header>div:last-of-type>img:hover {
     align-items: center;
 }
 
-.overlaySwipeBtn > div > img {
+.overlaySwipeBtn>div>img {
     width: 30px;
     height: auto;
     background-color: white;
@@ -150,7 +150,7 @@ header>div:last-of-type>img:hover {
     cursor: pointer;
 }
 
-.overlaySwipeBtn > div > img:hover {
+.overlaySwipeBtn>div>img:hover {
     box-shadow: 0px 0px 10px 5px white;
 }
 

@@ -54,8 +54,9 @@ let images = [
   }
 
   function renderTemplate(i) {
-    return `<div class="outerImgBox">
-    <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${images[i]});">
+    return `
+    <div class="outerImgBox">
+      <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${images[i]});">
     </div>
     <div></div>
   </div>
@@ -70,8 +71,9 @@ let images = [
   }
 
   function renderFavoritesTemplate(i) {
-    return `<div class="outerImgBox">
-    <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${images[i]});">
+    return `
+    <div class="outerImgBox">
+      <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${images[i]});">
     </div>
     <div class="delete" onclick="deleteFavorite(${i})">
       <img src="./img/icons/entfernen.png" />
@@ -121,7 +123,7 @@ let images = [
     </div>
     
     <div class="showImage">
-      <img id="${i}" src="${images[i]}" />
+      <img id="${i}" src="${images[i]}" class="img${i}"/>
     </div>
   </div>
 
@@ -159,7 +161,7 @@ let images = [
 }
 
 
-function previousImg(i) {                           // kann nur immer das vorgerige Bild ansehen, dann keines mehr
+/* function previousImg(i) {                           // kann nur immer das vorgerige Bild ansehen, dann keines mehr
   let img = document.getElementById(i);
 
     images.indexOf(img);
@@ -172,37 +174,23 @@ function nextImg(i) {
 
   images.indexOf(i);
   img.src = images[i+1]
-  }
+  } */
 
   // FUNKTION ausprobieren!!!!
 
-/*   var imgTag = document.querySelector("img");
-  var count = 0;
-  
-  function next(){
-      count++;
-      if(count >= photos.length){
-          count = 0;
-          imgTag.src = photos[count];
-      }else{
-          imgTag.src = photos[count];
-      }
+ 
+
+  function previousImg(i){
+    let img = document.getElementById(i);
+    img.src = images[i];
+    img.src = images[i-1];
   }
-  
-  function prev(){
-      count--;
-      if(count < 0){
-          count = photos.length -1;
-          imgTag.src = photos[count];
-      }else{
-          imgTag.src = photos[count];
-      }
+
+  function nextImg(i){
+    let img = document.getElementById(i);
+    img.src = images[i];
+    img.src = images[i+1];
   }
- */
-
-
-
-
 
 
 
