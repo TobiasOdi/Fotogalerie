@@ -1,3 +1,5 @@
+let currentImageIndex = 0;
+let favorites = [];
 let images = [
     "./img/alberta-2297204_1920.jpg",
     "./img/aurora-1197753_1920.jpg",
@@ -43,8 +45,6 @@ let images = [
     "./img/tree-736885.jpg",
   ];
 
-  let favorites = [];
-
   function render() {
     document.getElementById("content").innerHTML = ``;
 
@@ -83,11 +83,11 @@ let images = [
   }
 
   function openImage(i) {
-    document.getElementById("content").innerHTML = ``;
-    document.getElementById("content").innerHTML += openImageTemplate(i);
+    currentImageIndex = i;
+    document.getElementById("content").innerHTML = openImageTemplate();
   }
 
-  function openImageTemplate(i){
+  function openImageTemplate(){
     return `
   <div class="backgroundImg">
     <div class="overlay">
@@ -99,16 +99,16 @@ let images = [
         <div>
           <img src="./img/icons/sharethis-64.png" alt="icen zum sharen">
         </div>
-        <div onclick="zoomin(${i})" >
+        <div onclick="zoomin(${currentImageIndex})" >
           <img src="./img/icons/zoom-in-64.png" alt="icon Lupe grösser">
         </div>
-        <div onclick="zoomout(${i})">
+        <div onclick="zoomout(${currentImageIndex})">
           <img src="./img/icons/zoom-out-64.png" alt="icon Lupe kleiner">
         </div>    
         <div>
           <img src="./img/icons/info-2-64.png" alt="icon informiation">
         </div>
-        <div onclick="like(${i})">
+        <div onclick="like(${currentImageIndex})">
           <img class="star" id="star" src="./img/icons/star-4-64.png" alt="icon Stern">
         </div>
         <div>
@@ -123,15 +123,15 @@ let images = [
     </div>
     
     <div class="showImage">
-      <img id="${i}" src="${images[i]}" class="img${i}"/>
+      <img id="${currentImageIndex}" src="${images[currentImageIndex]}" class="img${currentImageIndex}"/>
     </div>
   </div>
 
   <div class="overlaySwipeBtn">
-      <div calss="swipeleft" onclick="previousImg(${i})">
+      <div calss="swipeleft" onclick="previousImg(${currentImageIndex})">
         <img src="./img/icons/previous.png">
       </div>
-      <div calss="swiperight" onclick="nextImg(${i})">
+      <div calss="swiperight" onclick="nextImg(${currentImageIndex})">
         <img src="./img/icons/next.png">
       </div>
     </div>
@@ -160,45 +160,33 @@ let images = [
     zoomout.style.width = (currWidth - 100) + "px";
 }
 
-
-/* function previousImg(i) {                           // kann nur immer das vorgerige Bild ansehen, dann keines mehr
-  let img = document.getElementById(i);
-
-    images.indexOf(img);
-    img.src = images[i-1];
-    img = i-1;                                     // img ID aktualisieren
-}
-
-function nextImg(i) {
-  let img = document.getElementById(i);            // kann nur immer das nächste Bild ansehen, dann keines mehr
-
-  images.indexOf(i);
-  img.src = images[i+1]
-  } */
-
-  // FUNKTION ausprobieren!!!!
-
- 
-
-  function previousImg(i){
+  function previousImg(i) {
     let img = document.getElementById(i);
-    img.src = images[i];
-    img.src = images[i-1];
+
+    if(currentImageIndex == 0) {
+      currentImageIndex = images.length;
+      currentImageIndex--;
+      img.src = images[currentImageIndex];
+  
+    } else {
+      currentImageIndex--;
+      img.src = images[currentImageIndex];
+    }
   }
 
   function nextImg(i){
     let img = document.getElementById(i);
-    img.src = images[i];
-    img.src = images[i+1];
-  }
 
-
-
-
-
-
-
-
+    if(currentImageIndex == images.length-1) {
+      //currentImageIndex = images.length;
+      currentImageIndex++;
+      img.src = images[currentImageIndex];
+  
+    } else {
+      currentImageIndex++;
+      img.src = images[currentImageIndex];
+    }
+}
 
 /* ============================== Like Funktion =============================================== */
 
