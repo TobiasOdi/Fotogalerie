@@ -45,6 +45,7 @@ let images = [
     "./img/tree-736885.jpg",
   ];
 
+  /* ==================================================== RENDER GALLERIE ======================================================= */
   function render() {
     document.getElementById("content").innerHTML = ``;
 
@@ -62,7 +63,7 @@ let images = [
   </div>
     `;
   }
-
+  /* ==================================================== RENDER FAVORITEN ======================================================= */
   function renderFavorites() {
      document.getElementById("content").innerHTML = ``;
      for (i = 0; i < favorites.length; i++) {
@@ -73,7 +74,7 @@ let images = [
   function renderFavoritesTemplate(i) {
     return `
     <div class="outerImgBox">
-      <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${images[i]});">
+      <div onclick="openImage(${i})" class="imgBox" style="background-image: url(${favorites[i]});">
     </div>
     <div class="delete" onclick="deleteFavorite(${i})">
       <img src="./img/icons/entfernen.png" />
@@ -82,9 +83,18 @@ let images = [
     `;
   }
 
+  function deleteFavorite(i) {
+    images.push(favorites[i]);
+    favorites.splice(i, 1);
+    renderFavorites()
+    save();
+  }
+
+  /* ==================================================== BILD ÖFFNEN ======================================================= */
   function openImage(i) {
     currentImageIndex = i;
     document.getElementById("content").innerHTML = openImageTemplate();
+    renderFavoriteIcon(currentImageIndex);
   }
 
   function openImageTemplate(){
@@ -96,20 +106,14 @@ let images = [
       </div>
 
       <div>
-        <div>
-          <img src="./img/icons/sharethis-64.png" alt="icen zum sharen">
-        </div>
         <div onclick="zoomin(${currentImageIndex})" >
           <img src="./img/icons/zoom-in-64.png" alt="icon Lupe grösser">
         </div>
         <div onclick="zoomout(${currentImageIndex})">
           <img src="./img/icons/zoom-out-64.png" alt="icon Lupe kleiner">
         </div>    
-        <div>
-          <img src="./img/icons/info-2-64.png" alt="icon informiation">
-        </div>
         <div onclick="like(${currentImageIndex})">
-          <img class="star" id="star" src="./img/icons/star-4-64.png" alt="icon Stern">
+          <img class="star" id="star${currentImageIndex}" src="./img/icons/star-4-64.png" alt="icon Stern">
         </div>
         <div>
           <img src="./img/icons/delete-64.png" alt="icon Abfalleimer">
@@ -138,11 +142,15 @@ let images = [
     `;
   }
 
-  // <div id="${i}" style="background-image: url(${images[i]});">
-  // </div>
+  function renderFavoriteIcon(currentImageIndex) {
+    if(favorites.includes(images[currentImageIndex])) {
+      document.getElementById('star'+currentImageIndex).src = './img/icons/star-64.png';
+    } else {
+      document.getElementById('star'+currentImageIndex).src = './img/icons/star-4-64.png';
+    }
+  }
 
-/* ============================= Hauptfunktionen Bild ======================================= */
-
+  /* ==================================================== FUNKTIONEN BILD ======================================================= */
   function backToImgs() {
     document.getElementById("content").innerHTML = ``;
     render();
@@ -159,6 +167,23 @@ let images = [
     let currWidth = zoomout.clientWidth;
     zoomout.style.width = (currWidth - 100) + "px";
 }
+
+  function like(currentImageIndex) {
+    currentStar = document.getElementById('star'+currentImageIndex);
+
+    if(favorites.includes(images[currentImageIndex])) {
+      currentStar.src = './img/icons/star-4-64.png';
+
+      let t = favorites.indexOf(images[currentImageIndex]);
+      favorites.splice(t, 1);
+      save();
+      
+    } else {
+      currentStar.src = './img/icons/star-64.png';
+      favorites.push(images[currentImageIndex]);
+      save();
+    }
+  }
 
   function previousImg(i) {
     let img = document.getElementById(i);
@@ -178,8 +203,7 @@ let images = [
     let img = document.getElementById(i);
 
     if(currentImageIndex == images.length-1) {
-      //currentImageIndex = images.length;
-      currentImageIndex++;
+      currentImageIndex = 0;
       img.src = images[currentImageIndex];
   
     } else {
@@ -188,29 +212,7 @@ let images = [
     }
 }
 
-/* ============================== Like Funktion =============================================== */
-
-let toggle = false;
-
-function like(i) {
-  if(toggle === true) {
-    document.getElementById('star').src = './img/icons/star-4-64.png';
-  } else {
-    document.getElementById('star').src = './img/icons/star-64.png';
-    favorites.push(images[i]);
-    save();
-  }
-  toggle = !toggle;
-}
-
-function deleteFavorite(i) {
-  images.push(favorites[i]);
-  favorites.splice(i, 1);
-  renderFavorites()
-  
-  save();
-}
-
+  /* ==================================================== ARRAY SPEICHERN/LADEN ======================================================= */
 function save() {
   let favoritesAsText = JSON.stringify(favorites);       
   localStorage.setItem('favorites', favoritesAsText);     
